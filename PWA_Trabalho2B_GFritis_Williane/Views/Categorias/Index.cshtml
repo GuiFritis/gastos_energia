@@ -1,0 +1,62 @@
+﻿@using PWA_Trabalho2B_GFritis_Williane.Models.Categorias
+@model PWA_Trabalho2B_GFritis_Williane.ViewModels.Categorias.CategoriasIndexViewModel
+@{
+    ViewData["Title"] = "Categorias";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Categorias</h1>
+
+    @if (Model.MsgErro != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <p>@Model.MsgErro</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    
+    @if (Model.MsgSuccess != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p>@Model.MsgSuccess</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="text-center">#</th>
+            <th class="text-center">Descrição</th>
+            <th class="text-center">Categoria Pai</th>
+            <th><a class="text-success" asp-action="Cadastro" title="Novo">Novo <i class="icofont-plus"></i></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (CategoriasViewDTO categoria in Model.Categorias)
+        {
+            <tr>
+                <td class="text-center">@categoria.Id</td>
+                <td class="text-center">@categoria.Descricao</td>
+                @if (categoria.CategoriaPai != null)
+                {
+                    <td class="text-center">@categoria.CategoriaPai.Descricao</td>
+                }
+                else
+                {
+                    <td class="text-center"></td>
+                }
+                <td class="text-center">
+                    <a class="text-primary pr-3" asp-action="Cadastro" asp-route-id="@categoria.Id" title="Editar"><i class="icofont-edit"></i></a>
+                    <a class="text-danger" asp-action="Delete" asp-route-id="@categoria.Id" title="Deletar"><i class="icofont-ui-delete"></i></a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+</div>

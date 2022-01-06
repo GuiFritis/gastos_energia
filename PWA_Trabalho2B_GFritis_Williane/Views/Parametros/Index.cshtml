@@ -1,0 +1,57 @@
+﻿@using PWA_Trabalho2B_GFritis_Williane.Models.Parametros
+@model PWA_Trabalho2B_GFritis_Williane.ViewModels.Parametros.ParametrosIndexViewModel
+@{
+    ViewData["Title"] = "Parâmetros";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Parâmetros</h1>
+
+    @if (Model.MsgErro != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <p>@Model.MsgErro</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    
+    @if (Model.MsgSuccess != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p>@Model.MsgSuccess</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="text-center">#</th>
+            <th class="text-center">Valor Kwh</th>
+            <th class="text-center">Consumo Alto</th>
+            <th class="text-center">Consumo Médio</th>
+            <th><a class="text-success" asp-action="Cadastro" title="Cadastrar">Novo <i class="icofont-plus"></i></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (ParametrosViewDTO parametro in Model.Parametros)
+        {
+            <tr>
+                <td class="text-center">@parametro.Id</td>
+                <td class="text-center">@parametro.ValorKwh</td>
+                <td class="text-center">@parametro.FaixaConsumoAlto</td>
+                <td class="text-center">@parametro.FaixaConsumoMedio</td>
+                <td class="text-center">
+                    <a class="text-primary pr-3" asp-action="Cadastro" asp-route-id="@parametro.Id" title="Editar"><i class="icofont-edit"></i></a>
+                    <a class="text-danger" asp-action="Delete" asp-route-id="@parametro.Id" title="Deletar"><i class="icofont-ui-delete"></i></a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+</div>

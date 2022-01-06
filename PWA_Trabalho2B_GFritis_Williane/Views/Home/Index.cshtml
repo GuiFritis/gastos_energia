@@ -1,0 +1,88 @@
+﻿@model PWA_Trabalho2B_GFritis_Williane.ViewModels.HomeIndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Mapa de Gastos Energéticos</h1>
+
+    <div class="row">
+        <div class="col-12 mb-3">
+            <div class="card">
+                <div class="card-header">Total de Consumo de Energia</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <table class="table">
+                                <tr>
+                                    <th colspan="2">Gasto Total</th>
+                                </tr>
+                                <tr>
+                                    <td>@Model.ConsumoTotal.WattsTotal Watts</td>
+                                    <td>R$ @Model.ConsumoTotal.ValorTotal</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-6">
+                            <table class="table">
+                                <tr>
+                                    <th colspan="2">Faixa de Consumo</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">@Model.ConsumoTotal.FaixaConsumo</td>
+                                </tr>
+                            </table>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-12 mb-3">
+            <div class="card">
+                <div class="card-header">Categorias que mais consomem</div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th class="text-center">Categoria</th>
+                            <th class="text-center">Consumo</th>
+                            <th class="text-center">Valor</th>
+                        </tr>
+                        @foreach(var cat in Model.CategoriasConsumo)
+                        {
+                            <tr>
+                                <td>@cat.Categoria</td>
+                                <td>@cat.ConsumoMensalKw Kw</td>
+                                <td>R$ @cat.ValorMensalKwh</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-12 mb-3">
+            <div class="card">
+                <div class="card-header">Itens que mais consomem</div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th class="text-center">Item</th>
+                            <th class="text-center">Consumo</th>
+                            <th class="text-center">Valor</th>
+                        </tr>
+                        @foreach(var item in Model.ItensConsumo)
+                        {
+                            <tr>
+                                <td>@item.Item</td>
+                                <td>@item.ConsumoMensalKw Kw</td>
+                                <td>R$ @item.ValorMensalKwh</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

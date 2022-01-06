@@ -1,0 +1,59 @@
+﻿@model PWA_Trabalho2B_GFritis_Williane.ViewModels.Parametros.ParametrosDeleteViewModel
+@{
+    ViewData["Title"] = "Deletar Parâmetros #" + Model.Id;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Confirmação de Exclusão</h1>
+    <h3>Dados dos Parâmetros a serem removidos</h3>
+
+    @if (Model.MsgErro != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <p>@Model.MsgErro</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    @if (Model.MsgSuccess != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p>@Model.MsgSuccess</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <div class="col-md-12 text-left">
+        <form asp-action="DeleteParametro" asp-route-id="@Model.Id">
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"> # </label>
+                <input name="Id" asp-for="Id" class="form-control" readonly/>
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorKwh" class="control-label"> Valor Kwh </label>
+                <input name="ValorKwh" asp-for="ValorKwh" class="form-control" readonly/>
+                <span asp-validation-for="ValorKwh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FaixaConsumoAlto" class="control-label"> Consumo Alto </label>
+                <input name="FaixaConsumoAlto" asp-for="FaixaConsumoAlto" class="form-control" readonly/>
+                <span asp-validation-for="FaixaConsumoAlto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FaixaConsumoMedio" class="control-label"> Consumo Médio </label>
+                <input name="FaixaConsumoMedio" asp-for="FaixaConsumoMedio" class="form-control" readonly/>
+                <span asp-validation-for="FaixaConsumoMedio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Confirmar" class="btn btn-danger"/>
+                <input type="submit" value="Voltar" class="btn btn-success" asp-action="Index"/>
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,65 @@
+﻿@using Microsoft.AspNetCore.Routing.Template
+@model PWA_Trabalho2B_GFritis_Williane.ViewModels.Categorias.CategoriasDeleteViewModel
+@{
+    ViewData["Title"] = "Deletar Categoria #" + Model.Id;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Confirmação de Exclusão</h1>
+        <h3>Dados da Categoria a ser removida</h3>
+    
+    @if (Model.MsgErro != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p>@Model.MsgErro</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        
+        @if (Model.MsgSuccess != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <p>@Model.MsgSuccess</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+
+    <div class="col-md-12 text-left">
+        <form asp-action="DeleteCategoria" asp-route-id="@Model.Id">
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"> # </label>
+                <input name="Id" asp-for="Id" class="form-control" readonly/>
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label"> Descrição </label>
+                <input name="Descricao" id="Descricao" class="form-control" value="@Model.Descricao" readonly/>
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            @if (@Model.CategoriaPai != null)
+            {
+                <div class="form-group">
+                    <label asp-for="CategoriaPai.Descricao" class="control-label"> Categoria Pai </label>
+                    <input  name="CategoriaPai.Descricao" id="CategoriaPai.Descricao" class="form-control" value="@Model.CategoriaPai.Descricao" readonly>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="CategoriaPai.Descricao" class="control-label"> Categoria Pai </label>
+                    <input  name="CategoriaPai.Descricao" id="CategoriaPai.Descricao" class="form-control" value="" readonly>
+                </div>
+            }
+            
+             <div class="form-group">
+                <input type="submit" value="Confirmar" class="btn btn-danger"/>
+                <input type="submit" value="Voltar" class="btn btn-success" asp-action="Index"/>
+             </div>
+        </form>
+    </div>
+    
+</div>

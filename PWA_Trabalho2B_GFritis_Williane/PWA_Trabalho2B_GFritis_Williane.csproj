@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
+      <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\icofont\demo.html" />
+      <_ContentIncludedByDefault Remove="wwwroot\icofont\fonts\icofont.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\icofont\fonts\icofont.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\icofont\fonts\icofont.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\icofont\fonts\icofont.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\icofont\fonts\icofont.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\icofont\icofont.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\icofont\icofont.min.css" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,114 @@
+﻿@using PWA_Trabalho2B_GFritis_Williane.Models.Itens
+@model PWA_Trabalho2B_GFritis_Williane.ViewModels.Itens.ItensCadastroViewModel
+@{
+    if (@Model.Id == null)
+    {
+        ViewData["Title"] = "Cadastro de Itens";
+    }
+    else
+    {
+        ViewData["Title"] = "Atualizar Item";
+    }
+    
+    var selected = false;
+    var dataFabricacao = Model.DataFabricacao != null ? Model.DataFabricacao : DateTime.Now.ToString("yyyy-MM-dd");
+    var action = Model.Id == null?"InsertItem":"UpdateItem";
+}
+
+<div>
+    
+    @if (@Model.Id == null)
+    {
+        <h1 class="display-4 text-center">Cadastro de Itens</h1>
+    }
+    else
+    {
+        <h1 class="display-4 text-center">Atualizar Item</h1>
+    }
+
+    @if (Model.MsgErro != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <p>@Model.MsgErro</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    @if (Model.MsgSuccess != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p>@Model.MsgSuccess</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <div class="col-md-12">
+        <form asp-action="@action">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (Model.Id != null)
+            {
+                <div class="form-group">
+                    <input name="Id" type="hidden" asp-for="Id" class="form-control" value="@Model.Id"/>
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input name="Nome" id="Nome" class="form-control" value="@Model.Nome" required/>
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label">Descrição</label>
+                <input name="Descricao" id="Descricao" class="form-control" value="@Model.Descricao" required>
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoriaId" class="control-label">Categoria</label>
+                <select name="CategoriaId" id="CategoriaId" class="form-control" required>
+                    <option value="">Selecione</option>
+                    @if (Model.Categorias != null)
+                    {
+                        @foreach (CategoriasViewDTO cat in Model.Categorias)
+                        {
+                            selected = Model.CategoriaId == cat.Id;
+    
+                            <option value="@cat.Id" selected="@selected">@cat.Descricao</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="CategoriaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataFabricacao" class="control-label">Data de Fabricação</label>
+                <input name="DataFabricacao" id="DataFabricacao" class="form-control" type="date" value="@dataFabricacao" required>
+                <span asp-validation-for="DataFabricacao" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ConsumoWatts" class="control-label">Consumo (W)</label>
+                <input name="ConsumoWatts" id="ConsumoWatts" class="form-control" value="@Model.ConsumoWatts" required/>
+                <span asp-validation-for="ConsumoWatts" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HorasUsoDiario" class="control-label">Uso Diário (Hrs)</label>
+                <input name="HorasUsoDiario" id="HorasUsoDiario" class="form-control" value="@Model.HorasUsoDiario" required/>
+                <span asp-validation-for="HorasUsoDiario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @if (@Model.Id == null)
+                {
+                    <input type="submit" value="Inserir" class="btn btn-success"/>
+                }
+                else
+                {
+                    <input type="submit" value="Atualizar" class="btn btn-success"/>
+                }
+                 <a type="submit" class="btn btn-success" href="/Itens">Voltar</a>
+            </div>
+        </form>
+    </div>
+
+</div>

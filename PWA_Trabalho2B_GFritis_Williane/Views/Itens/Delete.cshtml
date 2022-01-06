@@ -1,0 +1,70 @@
+﻿@model PWA_Trabalho2B_GFritis_Williane.ViewModels.Itens.ItensDeleteViewModel
+@{
+    ViewData["Title"] = "Deletar Item - " + Model.Descricao;
+    
+    var dataFabricacao = Model.DataFabricacao != null ? Model.DataFabricacao: DateTime.Now.ToString("yyyy-MM-dd");
+}
+
+<div class="text-center">
+    <h1 class="display-4">Confirmação de Exclusão</h1>
+        <h3>Dados do Item a ser removido</h3>
+    
+    @if (Model.MsgErro != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <p>@Model.MsgErro</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    
+    @if (Model.MsgSuccess != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p>@Model.MsgSuccess</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <div class="col-md-12 text-left">
+        <form asp-action="DeleteItem" asp-route-id="@Model.Id">
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input name="Nome" asp-for="Nome" class="form-control" value="@Model.Nome" readonly/>
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label"></label>
+                <input name="Descricao" asp-for="Descricao" class="form-control" value="@Model.Descricao" readonly/>
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+               <label asp-for="Categoria.Descricao" class="control-label">Categoria</label>
+               <input name="Categoria.Descricao" asp-for="Categoria.Descricao" class="form-control" value="@Model.Categoria.Descricao" readonly>
+            </div>
+            <div class="form-group">   
+                <label asp-for="DataFabricacao" class="control-label">Data de Fabricação</label>
+                <input name="DataFabricacao" asp-for="DataFabricacao" class="form-control" type="date" value="@dataFabricacao" readonly>
+                <span asp-validation-for="DataFabricacao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConsumoWatts" class="control-label">Consumo (W)</label>
+                <input name="ConsumoWatts" asp-for="ConsumoWatts" class="form-control" value="@Model.ConsumoWatts" readonly/>
+                <span asp-validation-for="ConsumoWatts" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HorasUsoDiario" class="control-label">Uso Diário (Hrs)</label>
+                <input name="HorasUsoDiario" asp-for="HorasUsoDiario" class="form-control" value="@Model.HorasUsoDiario" readonly/>
+                <span asp-validation-for="HorasUsoDiario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Confirmar" class="btn btn-danger"/>
+                <input type="submit" value="Voltar" class="btn btn-success" asp-action="Index"/>
+            </div>
+        </form>
+    </div>
+    
+</div>

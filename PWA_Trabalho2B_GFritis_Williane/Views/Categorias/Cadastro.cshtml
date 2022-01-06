@@ -1,0 +1,93 @@
+﻿@using PWA_Trabalho2B_GFritis_Williane.Models.Categorias
+@model PWA_Trabalho2B_GFritis_Williane.ViewModels.Categorias.CategoriasCadastroViewModel
+@{
+    if (@Model.Id == null)
+    {
+        ViewData["Title"] = "Cadastro de Categorias";
+    }
+    else
+    {
+        ViewData["Title"] = "Atualizar Categoria";
+    }
+    
+    var selected = false;
+    
+    var action = Model.Id == null?"InsertCategoria":"UpdateCategoria";
+}
+
+<div>
+    @if (@Model.Id == null)
+    {
+        <h1 class="display-4 text-center">Cadastro de Categorias</h1>
+    }
+    else
+    {
+        <h1 class="display-4 text-center">Atualizar Categoria</h1>
+    }
+    
+
+    @if (Model.MsgErro != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <p>@Model.MsgErro</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    @if (Model.MsgSuccess != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p>@Model.MsgSuccess</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <div class="col-md-12">
+        <form asp-action="@action">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (Model.Id != null)
+            {
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label"> # </label>
+                    <input name="Id" asp-for="Id" class="form-control" value="@Model.Id" readonly/>
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="Descricao" class="control-label">Descrição</label>
+                <input name="Descricao" id="Descricao" class="form-control" value="@Model.Descricao" required/>
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoriaPaiId" class="control-label">Categoria Pai</label>
+                <select name="CategoriaPaiId" id="CategoriaPaiId" class="form-control">
+                    <option value="">Selecione</option>
+                    @if (Model.Categorias != null)
+                    {
+                        @foreach (CategoriasViewDTO cat in Model.Categorias)
+                        {
+                            selected = Model.CategoriaPaiId == cat.Id;
+    
+                            <option value="@cat.Id" selected="@selected">@cat.Descricao</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                @if (@Model.Id == null)
+                {
+                    <input type="submit" value="Inserir" class="btn btn-success"/>
+                }
+                else
+                {
+                    <input type="submit" value="Atualizar" class="btn btn-success"/>
+                }
+                <a type="submit" class="btn btn-success" href="/Categorias">Voltar</a>
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,85 @@
+﻿@model PWA_Trabalho2B_GFritis_Williane.ViewModels.Parametros.ParametrosCadastroViewModel
+@{
+    if (@Model.Id == null)
+    {
+        ViewData["Title"] = "Cadastro de Parâmetros";
+    }
+    else
+    {
+        ViewData["Title"] = "Atualizar Parâmetros";
+    }
+    
+    var action = Model.Id == null?"InsertParametro":"UpdateParametro";
+}
+
+<div class="text-center">
+    @if (@Model.Id == null)
+    {
+        <h1 class="display-4">Cadastro de Parâmetros</h1>
+    }
+    else
+    {
+        <h1 class="display-4">Atualizar Parâmetros</h1>
+    }
+    
+    @if (Model.MsgErro != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <p>@Model.MsgErro</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    
+    @if (Model.MsgSuccess != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p>@Model.MsgSuccess</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <div class="col-md-12 text-left">
+        <form asp-action="@action">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (Model.Id != null)
+            {
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label"> # </label>
+                    <input name="Id" asp-for="Id" class="form-control" value="@Model.Id" readonly/>
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="ValorKwh" class="control-label"> Valor Kwh </label>
+                <input name="ValorKwh" asp-for="ValorKwh" class="form-control" required/>
+                <span asp-validation-for="ValorKwh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FaixaConsumoAlto" class="control-label"> Consumo Alto </label>
+                <input name="FaixaConsumoAlto" asp-for="FaixaConsumoAlto" class="form-control" required/>
+                <span asp-validation-for="FaixaConsumoAlto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FaixaConsumoMedio" class="control-label"> Consumo Médio </label>
+                <input name="FaixaConsumoMedio" asp-for="FaixaConsumoMedio" class="form-control" required/>
+                <span asp-validation-for="FaixaConsumoMedio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @if (@Model.Id == null)
+                {
+                    <input type="submit" value="Inserir" class="btn btn-success"/>
+                }
+                else
+                {
+                    <input type="submit" value="Atualizar" class="btn btn-success"/>
+                }
+                <a type="submit" class="btn btn-success" href="/Parametros">Voltar</a>
+            </div>
+        </form>
+       
+    </div>
+    
+</div>
